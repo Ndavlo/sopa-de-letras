@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sopa de Letras</title>
+</head>
+<body>
+    <h1>Sopa de Letras</h1>
+    <form method="POST" action="/">
+        <label>Sopa de Letras:</label><br>
+        <textarea name="matrix" rows="4" cols="4"></textarea><br>
+        <label>Buscar palabra:</label><br>
+        <input type="text" name="words"><br><br>
+        <input type="submit" value="Buscar">
+    </form>
+    <br>
+    <div id="results"></div>
+    
+    <script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = new FormData(this);
+    fetch('/', {
+        method: 'POST',
+        body: form
+    }).then(response => response.json())
+      .then(data => {
+          const resultsDiv = document.querySelector('#results');
+          resultsDiv.innerHTML = '';
+          for (const [word, found] of Object.entries(data['results'])) {
+              const p = document.createElement('p');
+              p.textContent = `${word}: ${found ? 'Encontrada' : 'No encontrada'}`;
+              resultsDiv.appendChild(p);
+          }
+      });
+});
+	</script>
+</body>
+</html>
