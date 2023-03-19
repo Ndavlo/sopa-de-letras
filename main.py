@@ -17,9 +17,9 @@ def home():
         response = {'results': {}}
         for word in words_list:
             if word in results:
-                 response['results'][word] = {'found': True, 'direction': results[word]['direction'], 'coordinates': results[word]['coordinates']}
+                 response['results'][word] = {'found': True, 'coordinates': results[word]['coordinates']}
             else:
-                response['results'][word] = {'found': False, 'direction': None, 'coordinates': []}
+                response['results'][word] = {'found': False, 'coordinates': []}
         return jsonify(response)
     return render_template('home.html')
 

@@ -29,7 +29,7 @@ document.querySelector('form').addEventListener('submit', function(e) {
           for (const [word, result] of Object.entries(data['results'])) {
               const p = document.createElement('p');
               if (result.found) {
-                  p.textContent = `${word}: Encontrada, dirección ${result.direction}, coordenadas ${result.coordinates.join(', ')}`;
+                  p.textContent = `${word}: Encontrada, coordenadas ${result.coordinates.join(', ')}`;
               } else {
                   p.textContent = `${word}: No encontrada`;
               }
