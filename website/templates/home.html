@@ -26,9 +26,13 @@ document.querySelector('form').addEventListener('submit', function(e) {
       .then(data => {
           const resultsDiv = document.querySelector('#results');
           resultsDiv.innerHTML = '';
-          for (const [word, found] of Object.entries(data['results'])) {
+          for (const [word, result] of Object.entries(data['results'])) {
               const p = document.createElement('p');
-              p.textContent = `${word}: ${found ? 'Encontrada' : 'No encontrada'}`;
+              if (result.found) {
+                  p.textContent = `${word}: Encontrada, dirección ${result.direction}, coordenadas ${result.coordinates.join(', ')}`;
+              } else {
+                  p.textContent = `${word}: No encontrada`;
+              }
               resultsDiv.appendChild(p);
           }
       });

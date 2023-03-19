@@ -16,7 +16,10 @@ def home():
         results = find_words(matrix, words_list)
         response = {'results': {}}
         for word in words_list:
-            response['results'][word] = word in results
+            if word in results:
+                 response['results'][word] = {'found': True, 'direction': results[word]['direction'], 'coordinates': results[word]['coordinates']}
+            else:
+                response['results'][word] = {'found': False, 'direction': None, 'coordinates': []}
         return jsonify(response)
     return render_template('home.html')
 

@@ -4,16 +4,18 @@ def find_words(matrix, words):
     rows = len(matrix)
     cols = len(matrix[0])
     directions = [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)]
-    results = set()
+    results = {}
     for word in words:
         found = False
         for r, c, direction in itertools.product(range(rows), range(cols), directions):
             if search(matrix, r, c, direction, word):
-                results.add(word)
+                results[word] = {'direction': direction, 'coordinates': []}
+                for i in range(len(word)):
+                    results[word]['coordinates'].append((r+i*direction[0], c+i*direction[1]))
                 found = True
                 break
         if not found:
-            found = False
+            results[word] = {'direction': None, 'coordinates': []}
     return results
 
 def search(matrix, r, c, direction, word):
